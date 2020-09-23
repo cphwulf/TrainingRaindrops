@@ -24,11 +24,14 @@ class Catcher {
   void setPosition(float x, float y){
     xPos=x;
     yPos=y;
+    
     float tmpx=abs(width/2-x); //<>//
     float tmpy=abs(y-height/2);
-    println(tmpx);
+    
     int sum=int(tmpx+tmpy);
-    float nCol=map(sum,0,1500,0,255);
+    
+    float nCol=map(sum,0,width/2+height/2,0,255);
+    println(nCol);
     cCol=(int) nCol;
     //cCol=(int)((tmpx+tmpy));
   }

@@ -7,7 +7,9 @@ class Drop {
   float speed;
   int dCol;
   int direction=1;
+  float speedFactor;
   //konstruktør
+  
   Drop(float x, float y, float r) {
     xPos=x;
     yPos=y;
@@ -15,11 +17,25 @@ class Drop {
     dCol=120; 
     speed=1;
   }
+  
+  Drop() {
+    //random(width), height/20, height/20
+    xPos=random(width);
+    yPos=height/20;
+    radius=random(1,8);
+    dCol=120; 
+    speed=random(1,5);
+    speedFactor=random(1,10);
+  }
   //metoder
 
   void display() {
     fill(dCol);
     ellipse(xPos, yPos, radius*2, radius*2);
+  }
+  
+  void move() {
+    yPos=yPos+speed*speedFactor*direction*0.1;
   }
 
   void move(int speedFactor) {
@@ -34,10 +50,6 @@ class Drop {
     direction=direction*-1;
   }
   
-  void goToHell() {
-    
-     
-  }
   
   boolean interSect(Drop drop) {
     boolean inRange=false;
