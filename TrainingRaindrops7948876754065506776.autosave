@@ -1,0 +1,48 @@
+// The catcher (begreber)
+// The timer
+// The collision (aktivitet)
+// The drop
+// The game - TrainingRaindrops
+
+Catcher catcher;
+Drop d1;
+Drop d2;
+Drop[] drops;
+
+void setup() {
+  size(800, 600);
+  drops = new Drop[100];
+  catcher = new Catcher(width/2, height/2, width/20);
+  initArray(drops);
+  /*
+  d1 = new Drop(300, 200, width/20);
+  d2 = new Drop(300, 400, width/20);
+  drops[0]=d1;
+  drops[1]=d2;
+  */
+}
+
+void initArray(Drop[] myArray) {
+  Drop tmpDrop = null;
+  // loope igennem og lave en dråbe for hver plads
+  for(int i = 0; i< myArray.length;i++) {
+    //tmpDrop = new Drop(random(width),random(10),random(1,5));
+    tmpDrop = new Drop();
+    myArray[i] = tmpDrop;
+  }
+}
+
+void draw() {
+  background(255);
+  catcher.setPosition(mouseX, mouseY);
+  catcher.display();
+  for (int i=0; i<drops.length; i++) {
+    if (catcher.interSect(drops[i])) {
+       drops[i].move(340);
+    }  else { 
+      //drops[i].move(1);
+      drops[i].move();
+      drops[i].display();
+    }
+  }
+}

@@ -1,57 +1,68 @@
-// The catcher (begreber)
+// The catcher (begreber) //<>//
 // The timer
 // The collision (aktivitet)
 // The drop
 // The game - TrainingRaindrops
+// The Counter
+// The Bucket
 
 Catcher catcher;
-Drop d1;
-Drop d2;
 Drop[] drops;
+Timer timer;
+Counter counter;
+int j;
+int max;
 
 void setup() {
+  counter = new Counter();
+  colorMode(HSB);
   size(800, 600);
-  drops = new Drop[100];
+  int interval = 1000;
+  j=0;
+  max=100;
+  timer = new Timer(interval);
+  drops = new Drop[max];
+  initArray(drops);
   catcher = new Catcher(width/2, height/2, width/20);
-  d1 = new Drop(300, 200, width/20);
-  d2 = new Drop(300, 400, width/20);
-  drops[0]=d1;
-  drops[1]=d2;
+  timer.startTimer();
 }
 
+void initArray(Drop[] myArray) {
+  Drop tmpDrop = null;
+  for (int i=0; i<myArray.length; i++) {
+    tmpDrop = new Drop();
+    myArray[i]= tmpDrop;
+  }
+}
 void draw() {
   background(255);
   catcher.setPosition(mouseX, mouseY);
   catcher.display();
-  for (int i=0; i<drops.length; i++) {
-    if (drops[i] != null) {
-      drops[i].move(1);
-      drops[i].display();
+  // send et signal når der er gået interval sekunder
+  // gør noget "nyt" - send en dråbe
+  
+  // spørg om spillet har kørt mere end total-time
+  // hvis ja - udskriv hits
+  
+  if(timer.intervalDone()) {
+
+    // giv mig en ny dråbe
+    j++;
+    if (j>max) {
+      j=0;
     }
+    timer.startTimer();
   }
   
-  for (int i=0; i<drops.length; i++) {
-    if (drops[i] != null) {
-      if (catcher.interSect(drops[i])) {
-        // hvis de er indenfor 2*radius så ændre retningen på begge
-        drops[i].move(340);
-        //d2.changeDirection();
-      }
+  for (int i=0; i<=j; i++) {
+    if (catcher.interSect(drops[i])) {
+      // hvis de er indenfor 2*radius så ændre retningen på begge
+      drops[i].move(340);
+      counter.addHit();
+      //d2.changeDirection();
+    } else {
+      drops[i].move();
+      drops[i].display();
     }
-    
-    /*
-     d1.move(2);
-     d2.move(1);
-     d1.display();
-     d2.display();
-     */
-
-    /*
-  if(d1.interSect(d2)) {
-     // hvis de er indenfor 2*radius så ændre retningen på begge
-     d1.move(500);
-     //d2.changeDirection();
-     }
-     */
   }
 }

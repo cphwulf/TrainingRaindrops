@@ -18,14 +18,13 @@ class Drop {
   }
   
   Drop() {
-    xPos=random(width);
-    radius=random(1,5);
-    yPos=radius;
-    dCol=120;
-    speed=random(1,4);  
+    
   }
   //metoder
 
+  void move(){
+    
+  }
   void display() {
     fill(dCol);
     ellipse(xPos, yPos, radius*2, radius*2);
@@ -37,10 +36,6 @@ class Drop {
       direction=direction*-1;
     }
     yPos=yPos+speed*speedFactor*direction;
-  }
-  
-  void move() {
-    yPos=yPos+speed;
   }
   
   void changeDirection() {
